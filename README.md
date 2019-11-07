@@ -68,7 +68,7 @@ create.py -n myFirstProject
 # Future Developments
 
 * Add the ability to connect to GitLab and Bitbucket
-* In case something goes wrong at login stage the script should delete the folder that has been created in the first steps
+* <s>In case something goes wrong at login stage the script should delete the folder that has been created in the first steps</s>
 * Add multiple Arguments
 * * For using the text editors that the user wants by passing -t "name of the editor"
 
