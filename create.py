@@ -3,7 +3,21 @@
 import os
 import argparse
 import sys
+import shutil
 
+def cd_workplace():
+        #go to the workplace folder
+    try:
+        # Change the current working Directory    
+        os.chdir(working_Folder)
+        print("Directory changed")
+    except OSError:
+        print("Can't change the Current Working Directory\nPlease check the path of your working directory")  
+        sys.exit(0)
+    #print('ls change dir')
+    #os.system('ls') 
+
+    
 
 #Get the name of the New project from the command line 
 parser = argparse.ArgumentParser(description='Create your workplace.')
@@ -11,17 +25,15 @@ parser.add_argument('-n', '--name', type=str, metavar='', required=True, help='E
 args = parser.parse_args()
 #print (args.name)
 
-# I am using Windows Subsystem for Linux and this is may project folder
+# i am using Windows Subsystem for Linux and This is may project folder
 working_Folder = "/mnt/c/Workplace/" #change with your own folder
 
 #Username
 username = "yourGitHubUsername"                            #add your own GitHub Username
 usernameC = '"' + username + '"'
-
 #Prvate Token From GitHub
 token = "b18ahsdyualca8785fsda9jds6572934deba98"  #add your own GitHub Token
 tokenC = '"' + token + '"'
-
 #Repo name
 repo_Name = args.name   # pass the arg.name to the var 
 repo_NameC =  '"' + repo_Name + '"'
@@ -30,16 +42,10 @@ repo_NameC =  '"' + repo_Name + '"'
 remote_github= 'https://github.com/%s/%s.git' %(username, repo_Name)
 print(remote_github)
 
-#go to the workplace folder
-try:
-    # Change the current working Directory    
-    os.chdir(working_Folder)
-    print("Directory changed")
-except OSError:
-    print("Can't change the Current Working Directory\nPlease check the path of your working directory")  
-    sys.exit(0)
-print('ls change dir')
-os.system('ls') 
+#CD to the workplace
+cd_workplace()
+
+
 
 
 if not os.path.exists(repo_Name):
@@ -51,7 +57,7 @@ else:
 
 #create the repo on GitHub
 create_Repo= 'curl -u %s:%s https://api.github.com/user/repos -d \'{"name":%s}\''%( usernameC, tokenC, repo_NameC)
-print (create_Repo)
+#print (create_Repo)
 os.system(create_Repo)
 
 #print('ls dir created ')
@@ -71,10 +77,22 @@ print ('git add')
 os.system('git commit -m "initial commit"')
 print ('git initial commit')
 
-os.system('git push -u origin master')
+x = os.system('git push -u origin master')
 print ('git push origin master')
 
-#Open Visual Studio Code in the new directory  
-os.system('code .')
+#Check if the command $ git push -u origin master    works; If not delete the folder create 
+
+if x == 0:
+    #Open Visual Studio Code in the new directory  
+    os.system('code .')
+else:
+    print (x)
+    print("delete the folder that was created ")
+
+    #CD to the workplace
+    cd_workplace()
+    
+    shutil.rmtree(repo_Name)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\nThere was a problem trying to push the repo to the Origin Master\nTry again \nCheck your credentials")
 
 
