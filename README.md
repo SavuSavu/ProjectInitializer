@@ -14,7 +14,7 @@ Open the script in your favorite text editor
 You need to make 3 changes in order for the script to work 
 
 
-Change the "working_Folder" var with the path to the folder were you want to create the repositories on your Computer   
+Change the "working_Folder" with the path to the folder where you want to create the repositories on your Computer   
 
 ```
 working_Folder = "/mnt/c/Workplace/"              #Change with your own path
@@ -68,7 +68,9 @@ create.py -n myFirstProject
 # Future Developments
 
 * Add the ability to connect to GitLab and Bitbucket
-* In case something go wrong at login stage the script should delete the folder that been created in the first steps
+* In case something goes wrong at login stage the script should delete the folder that has been created in the first steps
 * Add multiple Arguments
 * * For using the text editors that the user wants by passing -t "name of the editor"
+
+
 
